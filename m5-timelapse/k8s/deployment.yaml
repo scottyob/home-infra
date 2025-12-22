@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: m5-timelapse
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: m5-timelapse
+  template:
+    metadata:
+      labels:
+        app: m5-timelapse
+    spec:
+      containers:
+      - name: m5-timelapse
+        image: scottyob/m5-timelapse-server:latest
+        ports:
+        - containerPort: 8080
+        env:
+        - name: DATA_DIR
+          value: "/data"
+        volumeMounts:
+        - name: timelapse-data
+          mountPath: /data
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+      volumes:
+      - name: timelapse-data
+        persistentVolumeClaim:
+          claimName: timelapse-pvc

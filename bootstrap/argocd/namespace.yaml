@@ -1,0 +1,6 @@
+# home-infra/bootstrap/argocd/namespace.yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: argocd
+

@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: m5-timelapse
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/scott/home-infra.git  # Replace with your actual repo URL
+    targetRevision: HEAD
+    path: m5-timelapse/k8s
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true

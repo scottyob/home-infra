@@ -1,0 +1,24 @@
+# Client Service for ArgoCD external access
+apiVersion: v1
+kind: Service
+metadata:
+  name: argocd-server-external
+  namespace: argocd
+  labels:
+    app.kubernetes.io/name: argocd-server-external
+spec:
+  type: ClusterIP
+  ports:
+  - name: https
+    port: 443
+    targetPort: 8080
+    protocol: TCP
+  - name: http
+    port: 80
+    targetPort: 8080
+    protocol: TCP
+  selector:
+    app.kubernetes.io/name: argocd-server
+  externalTrafficPolicy: Local
+  externalIPs:
+    - 10.11.10.4

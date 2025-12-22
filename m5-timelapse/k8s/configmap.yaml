@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: m5-timelapse-config
+  namespace: default
+data:
+  # Add any configuration values here if needed
+  # For now, this is empty as the app doesn't require specific config
