@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/scott/home-infra.git  # Replace with your actual repo URL
+    repoURL: https://github.com/scottyob/home-infra.git  # Replace with your actual repo URL
     targetRevision: HEAD
     path: m5-timelapse/k8s
   destination:
