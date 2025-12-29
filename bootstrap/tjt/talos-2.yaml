@@ -16,10 +16,3 @@ machine:
 cluster:
   controlPlane:
     endpoint: https://192.168.1.200:6443
----
-apiVersion: v1alpha1
-kind: ExtensionServiceConfig
-name: tailscale
-environment:
-  - TS_AUTHKEY=tskey-auth-kDFJ4WzPVm11CNTRL-qMWhmjwKLH942CSkAbWVH9EiFmG4hT6C9
-  - TS_ROUTES=192.168.1.200/32
