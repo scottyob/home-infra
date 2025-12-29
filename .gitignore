@@ -3,4 +3,3 @@ bootstrap/tjt/kubeconfig
 bootstrap/tjt/controlplane.yaml
 bootstrap/tjt/worker.yaml
 bootstrap/tjt/tailscale-control.yaml
-

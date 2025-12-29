@@ -19,6 +19,6 @@ spec:
     protocol: TCP
   selector:
     app.kubernetes.io/name: argocd-server
-  externalTrafficPolicy: Local
-  externalIPs:
-    - 10.11.10.4
+  # externalTrafficPolicy: Local
+  # externalIPs:
+  #   - 10.11.10.4
