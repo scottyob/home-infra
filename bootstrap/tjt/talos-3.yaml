@@ -1,0 +1,18 @@
+machine:
+  network:
+    hostname: tjt-talos-cp-3
+    interfaces:
+      - interface: ens18
+        dhcp: false
+        addresses:
+          - 192.168.1.203/24       # Your desired static IP
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 192.168.1.1   # Your network gateway
+        vip:
+          ip: 192.168.1.200         # Your VIP
+    nameservers:
+      - 192.168.1.1
+cluster:
+  controlPlane:
+    endpoint: https://192.168.1.200:6443

@@ -25,3 +25,7 @@ For tracking of public addresses currently in use, see [public-addresses.md](pub
 ### ArgoCD External Access
 
 ArgoCD is configured with an external service that allows access via the dedicated IP address 10.11.10.4. This service complements the existing ingress configuration by providing direct IP-based access to the ArgoCD server, which is useful for scenarios where DNS resolution may not be available or desired.
+
+## Network Architecture
+
+All cluster communication and services operate over Tailscale for secure networking. Calico or Cilium will be used with BGP peering over Tailscale to the home router to expose services in either site.

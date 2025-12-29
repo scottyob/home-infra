@@ -1,0 +1,25 @@
+machine:
+  network:
+    hostname: tjt-talos-cp-2
+    interfaces:
+      - interface: ens18
+        dhcp: false
+        addresses:
+          - 192.168.1.202/24       # Your desired static IP
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 192.168.1.1   # Your network gateway
+        vip:
+          ip: 192.168.1.200         # Your VIP
+    nameservers:
+      - 192.168.1.1
+cluster:
+  controlPlane:
+    endpoint: https://192.168.1.200:6443
+---
+apiVersion: v1alpha1
+kind: ExtensionServiceConfig
+name: tailscale
+environment:
+  - TS_AUTHKEY=tskey-auth-kDFJ4WzPVm11CNTRL-qMWhmjwKLH942CSkAbWVH9EiFmG4hT6C9
+  - TS_ROUTES=192.168.1.200/32
