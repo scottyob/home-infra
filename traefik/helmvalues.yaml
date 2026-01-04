@@ -1,0 +1,25 @@
+service:
+  # type: NodePort
+  ports:
+    web:
+      nodePort: 30080
+    websecure:
+      nodePort: 30443
+  annotations:
+    tailscale.com/expose: "true"
+
+
+ingressClass:
+  enabled: true
+  isDefaultClass: true
+
+additionalArguments:
+  - "--certificatesresolvers.letsencrypt.acme.email=scott@scottyob.com"
+  - "--certificatesresolvers.letsencrypt.acme.storage=/data/acme.json"
+  - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
+
+# Enable persistence to store ACME certificates
+# persistence:
+#   enabled: true
+#   path: /data
+#   size: 1Gi

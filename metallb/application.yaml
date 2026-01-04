@@ -1,0 +1,50 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: metallb
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://metallb.github.io/metallb
+    chart: metallb
+    targetRevision: 0.15.3
+    helm:
+      values: |
+        # Basic configuration for MetalLB
+        speaker:
+          enabled: true
+          ignoreNodeLabels: true  # Allow deployment on all nodes, including control planes
+          hostPorts:
+            metrics: 7472
+            frrMetrics: 7473
+            reloaderWebhook: 9999
+          hostNetwork: true
+          securityContext:
+            runAsNonRoot: false
+            runAsUser: 0
+            # capabilities:
+            #   add: ["NET_ADMIN", "NET_RAW", "SYS_ADMIN"]
+        controller:
+          enabled: true
+        webhook:
+          enabled: true
+        crd:
+          enabled: true
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: metallb-system
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+    - RespectIgnoreDifferences=true
+  ignoreDifferences:
+  - group: ""
+    kind: ConfigMap
+    name: config
+    namespace: metallb-system
+    jsonPointers:
+    - /data

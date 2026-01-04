@@ -1,0 +1,63 @@
+cluster:
+  network:
+    cni:
+      name: flannel
+      flannel:
+        extraArgs:
+          - "--ip-masq"
+          - "--iptables-resync=30"
+    podSubnets:
+      - 10.244.0.0/16
+      - fd00:10:244::/56
+    serviceSubnets:
+      - 10.96.0.0/12
+      - fd00:10:96::/112
+  allowSchedulingOnControlPlanes: true
+  inlineManifests:
+    - name: flannel-ipv6
+      contents: |
+        apiVersion: v1
+        kind: ConfigMap
+        metadata:
+          name: kube-flannel-cfg
+          namespace: kube-system
+        data:
+          cni-conf.json: |
+            {
+              "name": "cbr0",
+              "cniVersion": "0.3.1",
+              "plugins": [
+                {
+                  "type": "flannel",
+                  "delegate": {
+                    "isDefaultGateway": true,
+                    "hairpinMode": true
+                  }
+                },
+                {
+                  "type": "portmap",
+                  "capabilities": { "portMappings": true }
+                }
+              ]
+            }
+          net-conf.json: |
+            {
+              "EnableIPv6": true,
+              "IPv6Masq": true,
+              "Network": "10.244.0.0/16",
+              "IPv6Network": "fd00:10:244::/56",
+              "Backend": {
+                "Type": "vxlan"
+              }
+            }
+
+machine:
+  sysctls:
+    net.ipv6.conf.all.disable_ipv6: "0"
+    net.ipv6.conf.default.disable_ipv6: "0"
+    net.ipv6.conf.all.forwarding: "1"
+    net.ipv6.conf.default.forwarding: "1"
+---
+apiVersion: v1alpha1
+kind: HostnameConfig
+$patch: delete
