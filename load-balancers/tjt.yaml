@@ -8,13 +8,14 @@ metadata:
 spec:
   type: LoadBalancer
   loadBalancerIP: 192.168.1.240  # first IP from your IPAddressPool
+  externalTrafficPolicy: Local  # Required to set the IP Address correctly
   selector:
     app.kubernetes.io/instance: traefik-traefik
     app.kubernetes.io/name: traefik
   ports:
     - port: 80
-      targetPort: 8000
+      targetPort: 80
       name: web
     - port: 443
-      targetPort: 8443
+      targetPort: 443
       name: websecure

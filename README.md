@@ -45,6 +45,9 @@ This will apply our generated controlplane config to the host, with patches for 
 
 ```bash
 talosctl apply-config --insecure -n 192.168.1.142 --file controlplane.yaml -p talos-1.yaml -p workloads-control.yaml
+talosctl apply-config --insecure -n 192.168.1. --file controlplane.yaml -p talos-2.yaml -p workloads-control.yaml
+talosctl apply-config --insecure -n 192.168.1. --file controlplane.yaml -p talos-3.yaml -p workloads-control.yaml
+
 ```
 
 Feel free to also apply the config to the other nodes in this cluster now.
