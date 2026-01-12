@@ -22,8 +22,8 @@ spec:
               port: 443
               targetPort: 30443
               protocol: TCP
-          annotations:
-            tailscale.com/expose: "true"
+          # annotations:
+          #   tailscale.com/expose: "true"
 
         ingressClass:
           enabled: true
@@ -69,22 +69,3 @@ spec:
 #     - port: 443
 #       targetPort: 30443
 #       name: websecure
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: traefik-l2-lb-v4
-  namespace: traefik  # same namespace as your Traefik example
-spec:
-  type: LoadBalancer
-  loadBalancerIP: 192.168.1.240  # first IP from your IPAddressPool
-  selector:
-    app.kubernetes.io/instance: traefik-traefik
-    app.kubernetes.io/name: traefik
-  ports:
-    - port: 80
-      targetPort: 8000
-      name: web
-    - port: 443
-      targetPort: 8443
-      name: websecure

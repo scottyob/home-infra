@@ -15,6 +15,7 @@ spec:
         speaker:
           enabled: true
           ignoreNodeLabels: true  # Allow deployment on all nodes, including control planes
+          ignoreExcludeLB: true
           hostPorts:
             metrics: 7472
             frrMetrics: 7473

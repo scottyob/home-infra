@@ -57,6 +57,10 @@ machine:
     net.ipv6.conf.default.disable_ipv6: "0"
     net.ipv6.conf.all.forwarding: "1"
     net.ipv6.conf.default.forwarding: "1"
+  kubelet:
+    extraArgs:
+      node-labels: ""
+
 ---
 apiVersion: v1alpha1
 kind: HostnameConfig
